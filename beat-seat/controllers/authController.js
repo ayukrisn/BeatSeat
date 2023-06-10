@@ -70,5 +70,16 @@ module.exports = {
             req.flash("alertStatus", "danger");
             res.redirect("./");
         }
+    },
+
+    logout: async (req, res) => {
+        req.session.destroy((err) => {
+            if (err) {
+              console.error("Error destroying session:", err);
+            } else {
+              // Redirect the user to the login page or any other desired destination
+              res.redirect("./");
+            }
+          });
     }
 }

@@ -16,6 +16,8 @@ const mongoose = require("mongoose");
 // import method override
 const methodOverride = require("method-override");
 
+const { authenticateUser } = require("./authUser");
+
 //connect ke database
 // mongoose.connect("mongodb+srv://ayukrisn:ayukrisna@beatseat.qxv2w5w.mongodb.net/beat-seat", {
 //   useNewUrlParser: true,
@@ -55,7 +57,6 @@ app.use(
     cookie: {maxAge: 60000},
   })
 );
-
 
 // menggunakan flash
 app.use(flash());
