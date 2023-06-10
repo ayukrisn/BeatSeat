@@ -31,6 +31,7 @@ const usersScheme = new mongoose.Schema({
         type: String,
         // Data tidak boleh kosong
         required: true,
+        default: "User"
     },
 });
 

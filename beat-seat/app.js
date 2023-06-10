@@ -17,15 +17,25 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 
 //connect ke database
-mongoose.connect("mongodb+srv://ayukrisn:ayukrisna@beatseat.qxv2w5w.mongodb.net/beat-seat", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  // useCreateIndex: true,
-  // useFindAndModify: false,
-});
+// mongoose.connect("mongodb+srv://ayukrisn:ayukrisna@beatseat.qxv2w5w.mongodb.net/beat-seat", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+
+try {
+    mongoose.connect('mongodb+srv://ayukrisn:ayukrisna@beatseat.qxv2w5w.mongodb.net/beat-seat', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+  });
+    console.log('Connected to MongoDB');
+} catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+    process.exit(1); // Keluar dengan pesan eror
+}
 
 var indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const authRouter = require("./routes/auth");
 
 var app = express();
 
@@ -46,6 +56,7 @@ app.use(
   })
 );
 
+
 // menggunakan flash
 app.use(flash());
 
@@ -57,6 +68,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use("/auth", authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
