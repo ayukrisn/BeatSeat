@@ -34,5 +34,5 @@ const usersScheme = new mongoose.Schema({
     },
 });
 
-// ekspor model dari users
+// ekspor model dari users sehingga bisa digunakan
 module.exports=mongoose.model("Users", usersScheme);

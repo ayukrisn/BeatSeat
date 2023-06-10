@@ -19,7 +19,7 @@ module.exports = {
             // Render view pada file index, tampilkan data dan destracturkan,
             // lalu panggil variabel users di atas.
             // Render alert yang sudah dideclare
-            res.render("index", {
+            res.render("users/index", {
                 users,
                 alert,
                 title: "BeatSeat",
