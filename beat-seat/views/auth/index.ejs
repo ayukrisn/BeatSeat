@@ -44,14 +44,7 @@
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
         <p>Don't have an account? <a href="/auth/signup">Signup</a></p>
-        <!-- Alert -->
-        <div class="col-auto col-lg-12 mt-2">
-            <% if(alert.message != "") { %>
-            <div class="alert alert-<%= alert.status %>" role="alert">
-                <%= alert.message %>
-            </div>
-            <% } %>
-        </div>
+        <%- include('../parts/alerts.ejs') %>
     </div>
     <%- include('../parts/js.ejs') %>
 </body>
