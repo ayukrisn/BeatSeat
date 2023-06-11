@@ -36,7 +36,7 @@ const konserScheme = new mongoose.Schema({
     },
     waktuKonser: {
         //Tipe field waktuKonser
-        type: String,
+        type: Date,
         //Tidak boleh kosong
         required: true,
     },
