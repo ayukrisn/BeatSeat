@@ -1,0 +1,157 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="add-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Konser</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/konser" method="POST">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Nama Konser</label>
+            <input
+              type="text"
+              class="form-control"
+              id="namaKonser"
+              name="namaKonser"
+              placeholder="Enter nama konser"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Kategori Konser</label> <br>
+            <div class="form-check form-check-inline">
+              <input 
+                type="radio" 
+                class="form-check-input"
+                name="kategoriKonser" 
+                value="Rock"
+              /> 
+              <label class="form-check-label" for="Rock">Rock</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input 
+                type="radio"
+                class="form-check-input" 
+                name="kategoriKonser" 
+                value="Pop"
+              /> 
+              <label class="form-check-label" for="Pop">Pop</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input 
+                type="radio"
+                class="form-check-input" 
+                name="kategoriKonser" 
+                value="Jazz"
+              /> 
+              <label class="form-check-label" for="Jazz">Jazz</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input 
+                type="radio"
+                class="form-check-input" 
+                name="kategoriKonser" 
+                value="Hip-hop"
+              /> 
+              <label class="form-check-label" for="Hip-hop">Hip-hop</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input 
+                type="radio"
+                class="form-check-input" 
+                name="kategoriKonser" 
+                value="Indie"
+              /> 
+              <label class="form-check-label" for="Indie">Indie</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name">Deskripsi Konser</label>
+            <textarea
+              class="form-control"
+              id="deskripsiKonser"
+              name="deskripsiKonser"
+              placeholder="Enter deskripsi konser"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="name">Status Konser</label> <br>
+            <div class="form-check form-check-inline">
+              <input 
+                type="radio" 
+                class="form-check-input"
+                name="statusKonser" 
+                value="Tersedia"
+              /> 
+              <label class="form-check-label" for="Tersedia">Tersedia</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input 
+                type="radio"
+                class="form-check-input" 
+                name="statusKonser" 
+                value="Sold Out"
+              /> 
+              <label class="form-check-label" for="Sold Out">Sold Out</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input 
+                type="radio"
+                class="form-check-input" 
+                name="statusKonser" 
+                value="Selesai"
+              /> 
+              <label class="form-check-label" for="Selesai">Selesai</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name">Alamat Konser</label>
+            <textarea
+              class="form-control"
+              id="alamatKonser"
+              name="alamatKonser"
+              placeholder="Enter alamat konser"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="name">Waktu Konser</label>
+            <input
+              type="text"
+              class="form-control"
+              id="waktuKonser"
+              name="waktuKonser"
+              placeholder="Enter waktu konser"
+              required
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

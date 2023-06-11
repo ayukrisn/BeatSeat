@@ -77,7 +77,7 @@ module.exports = {
             // Jika edit data eror, berikan notifikasi erornya
             req.flash("alertMessage", `${error.message}`);
             req.flash("alertStatus", "danger");
-            // ketika inputan kosong maka redirect kehalaman (/mahasiswa)
+            // ketika inputan kosong maka redirect kehalaman (/users)
             res.redirect("/users");
         }
     },

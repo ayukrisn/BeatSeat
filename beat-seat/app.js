@@ -16,14 +16,7 @@ const mongoose = require("mongoose");
 // import method override
 const methodOverride = require("method-override");
 
-const { authenticateUser } = require("./authUser");
-
-//connect ke database
-// mongoose.connect("mongodb+srv://ayukrisn:ayukrisna@beatseat.qxv2w5w.mongodb.net/beat-seat", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-
+// connect ke database
 try {
     mongoose.connect('mongodb+srv://ayukrisn:ayukrisna@beatseat.qxv2w5w.mongodb.net/beat-seat', {
       useNewUrlParser: true,
@@ -35,9 +28,11 @@ try {
     process.exit(1); // Keluar dengan pesan eror
 }
 
+// variabel dan konstanta router
 var indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require("./routes/auth");
+const konserRouter = require("./routes/konser");
 
 var app = express();
 
@@ -67,9 +62,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// menggunakan router
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/auth", authRouter);
+app.use("/konser", konserRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

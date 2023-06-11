@@ -1,0 +1,77 @@
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <!-- Button trigger modal -->
+      <button
+        type="button"
+        class="btn btn-outline-primary btn-sm"
+        data-toggle="modal"
+        data-target="#add-modal"
+      >
+        Add
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table
+          class="table table-bordered"
+          id="dataTable"
+          width="100%"
+          cellspacing="0"
+        >
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Konser</th>
+              <th>Kategori</th>
+              <th>Deskripsi</th>
+              <th>Status</th>
+              <th>Alamat</th>
+              <th>Waktu</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(let i = 0; i < konser.length; i++) { %>
+            <tr>
+              <td><%= i +1 %></td>
+              <td><%= konser[i].namaKonser %></td>
+              <td><%= konser[i].kategoriKonser %></td>
+              <td><%= konser[i].deskripsiKonser %></td>
+              <td><%= konser[i].statusKonser %></td>
+              <td><%= konser[i].alamatKonser %></td>
+              <td><%= konser[i].waktuKonser %></td>
+              <td class="text-center">
+                <form
+                  action="/konser/<%= konser[i].id %>?_method=DELETE"
+                  method="POST"
+                >
+                <!-- data-nama di bawah akan dikirim pada form input pada modal-edit, dengan
+                    data dari tabel konser array[i] mengambil kolom pada database-->
+                <a 
+                   href="javascript:void()"
+                   class="btn btn-outline-warning btn-sm button-update"
+                   data-id="<%= konser[i].id %>"
+                   data-namaKonser="<%= konser[i].namaKonser %>"
+                   data-kategoriKonser="<%= konser[i].kategoriKonser %>"
+                   data-deskripsiKonser="<%= konser[i].deskripsiKonser %>"
+                   data-statusKonser="<%= konser[i].statusKonser %>"
+                   data-alamatKonser="<%= konser[i].alamatKonser %>"
+                   data-waktuKonser="<%= konser[i].waktuKonser %>"
+                  >Edit</a>
+                <button 
+                  type="submit" 
+                  class="btn btn-outline-danger btn-sm"
+                  onclick="return confirm('Apakah Anda yakin ingin menghapus data konser ini?');"
+                  >
+                  Delete
+                </button>
+              </form>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

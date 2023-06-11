@@ -48,10 +48,10 @@
               <a class="nav-link" href="#">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link.active" href="#">Users</a>
+              <a class="nav-link" href="./users">Users</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./konser">Konser</a>
+              <a class="nav-link.active" href="#">Konser</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Tiket</a>
@@ -69,7 +69,7 @@
         </div>
         <div class="col-md-10">
           <div class="container mt-5">
-            <h2 class="text-center">BEATSEAT - DAFTAR USERS</h2>
+            <h2 class="text-center">BEATSEAT - DAFTAR KONSER</h2>
             <div class="row mt-3">
               <!--Alert-->
               <div class="col-auto col-lg-12 mt-2">
@@ -104,23 +104,24 @@
       $("#dataTable").on("click", ".button-update", function() {
         // buat variabel untuk ambil data pada file table.ejs pada bagian tag a edit
         let id = $(this).data("id");
-        let nama = $(this).data("nama");
-        let email = $(this).data("email");
-        let password = $(this).data("password");
-        let noTelp = $(this).data("notelp");
-        let role = $(this).data("role");
+        let namaKonser = $(this).data("namakonser");
+        let kategoriKonser = $(this).data("kategorikonser");
+        let deskripsiKonser = $(this).data("deskripsikonser");
+        let statusKonser = $(this).data("statuskonser");
+        let alamatKonser = $(this).data("alamatkonser");
+        let waktuKonser = $(this).data("waktukonser");
         // panggil id edit-modal pada file edit_modal.ejs
         // dan membuat fungsi dari method
         $("#edit-modal").modal("show");
         // Kirim data melalui class di samping form-control tag input
         // dan valuenya mengambil dari tiap let di atas
         $(".id").val(id);
-        $(".nama").val(nama);
-        $(".email").val(email);
-        $(".password").val(password);
-        $(".noTelp").val(noTelp);
-        $(".role").val(role);
-        $("input[name=role][value=" + role + "]").prop('checked', true);
+        $(".namaKonser").val(namaKonser);
+        $("input[name=kategoriKonser][value=" + kategoriKonser + "]").prop('checked', true);
+        $(".deskripsiKonser").val(deskripsiKonser);
+        $("input[name=statusKonser][value=" + statusKonser + "]").prop('checked', true);
+        $(".alamatKonser").val(alamatKonser);
+        $(".waktuKonser").val(waktuKonser);
       });
     </script>
   </body>
