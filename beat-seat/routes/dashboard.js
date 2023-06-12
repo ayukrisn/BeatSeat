@@ -6,7 +6,10 @@ const router = require("express").Router();
 const {ensureAuthenticatedAsAdmin} = require("../config/auth.js");
 
 router.get("/", ensureAuthenticatedAsAdmin, function(req, res, next) {
-    res.render("./admin_dashboard.ejs");
+    res.render("./admin_dashboard.ejs", {
+      role: req.user.role
+    }
+    );
   });
 
 module.exports = router;

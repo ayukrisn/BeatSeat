@@ -24,6 +24,7 @@ module.exports = {
                 users,
                 alert,
                 title: "BeatSeat",
+                role: req.user.role
             })
         } catch (error) {
             // Jika eror, redirect ke route users

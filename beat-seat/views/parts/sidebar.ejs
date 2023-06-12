@@ -35,22 +35,47 @@
         <div class="sidebar-title">BeatSeat</div>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link" href="./dashboard">Dashboard</a>
+            <li class="nav-item">
+              <% if( role === "Admin") { %>
+              <a class="nav-link" href="./dashboard">Dashboard</a>
+              <% } else { %>
+              <a class="nav-link" href="public/">Dashboard</a>
+              <% } %>
           </li>
           <li class="nav-item">
+            <% if( role === "Admin") { %>
             <a class="nav-link" href="./users">Users</a>
+            <% } else { %>
+            <a class="nav-link" href="#">Profile</a>
+            <% } %>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./konser">Konser</a>
+            <% if( role === "Admin") { %>
+              <a class="nav-link" href="./konser">Konser</a>
+              <% } else { %>
+              <a class="nav-link" href="/konser">Konser</a>
+              <% } %>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Tiket</a>
+            <% if( role === "Admin") { %>
+              <a class="nav-link" href="#">Tiket</a>
+              <% } else { %>
+              <a class="nav-link" href="#">Tiket</a>
+              <% } %>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Transaksi</a>
+            <% if( role === "Admin") { %>
+              <a class="nav-link" href="#">Transaksi</a>
+              <% } else { %>
+              <a class="nav-link" href="#">Transaksi Saya</a>
+              <% } %>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="auth/logout">Log Out</a>
+            <% if( role === "Admin") { %>
+              <a class="nav-link" href="auth/logout">Log Out</a>
+              <% } else { %>
+              <a class="nav-link" href="../auth/logout">Log Out</a>
+              <% } %>
           </li>
         </ul>
       </div>

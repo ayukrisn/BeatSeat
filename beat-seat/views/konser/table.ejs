@@ -2,6 +2,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
       <!-- Button trigger modal -->
+      <% if( role === "Admin") { %>
       <button
         type="button"
         class="btn btn-outline-primary btn-sm"
@@ -10,6 +11,7 @@
       >
         Add
       </button>
+      <% } %>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -28,7 +30,9 @@
               <th>Status</th>
               <th>Alamat</th>
               <th>Waktu</th>
+              <% if( role === "Admin") { %>
               <th>Action</th>
+              <% } %>
             </tr>
           </thead>
           <tbody>
@@ -41,6 +45,7 @@
               <td><%= konser[i].statusKonser %></td>
               <td><%= konser[i].alamatKonser %></td>
               <td><%= konser[i].waktuKonser %></td>
+              <% if( role === "Admin") { %>
               <td class="text-center">
                 <form
                   action="/konser/<%= konser[i].id %>?_method=DELETE"
@@ -68,6 +73,7 @@
                 </button>
               </form>
               </td>
+              <% } %>
             </tr>
             <% } %>
           </tbody>

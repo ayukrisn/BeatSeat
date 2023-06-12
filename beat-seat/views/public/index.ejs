@@ -1,45 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>My First Web Page</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        main {
-            padding: 20px;
-        }
-        
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Welcome to My First Web Page</h1>
-    </header>
-    
-    <main>
-        <h2>About Me</h2>
-        <p>This is a paragraph about me and my interests.</p>
-    </main>
-    
-    <footer>
-        <p>&copy; 2023 My First Web Page. All rights reserved.</p>
-    </footer>
-</body>
+  <head>
+    <title>Welcome!</title>
+    <link 
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+      <!--Sidebar-->
+      <%- include('../parts/sidebar.ejs') %>
+        <div class="col-md-10">
+          <div class="container mt-5">
+            <h2 class="text-center">BEATSEAT</h2>
+            <p class="text-center">Start booking your concert tickets now!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--JS-->
+    <%- include('../parts/js.ejs') %>
+  </body>
 </html>

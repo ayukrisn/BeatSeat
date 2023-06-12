@@ -1,5 +1,6 @@
 // Variabel Konser dan import dari model Konser
 const Konser = require("../models/Konser");
+
 // const mongoose = require("mongoose");
 
 // Export module yang ada pada object
@@ -23,7 +24,8 @@ module.exports = {
                 konser,
                 alert,
                 title: "BeatSeat",
-            })
+                role: req.user.role
+            });
         } catch (error) {
             // Jika eror, redirect ke route konser dan print error
             console.error(error);
