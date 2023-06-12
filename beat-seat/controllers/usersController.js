@@ -1,6 +1,7 @@
 // Variabel Users dan import dari model Users
 const Users = require("../models/Users");
-// const mongoose = require("mongoose");
+// untuk bycrypt
+const bcrypt = require('bcrypt');
 
 // Export module yang ada pada object
 module.exports = {
@@ -33,22 +34,53 @@ module.exports = {
     // Membuat create data untuk users dan membuat fungsi untuk
     // menambahkan data di form dan menggunakan async wait
     addUsers: async (req, res) => {
-        // validasi untuk input kosong
         try {
             // konstanta dari yang akan diambil pada form
-            const {nama, email, password, noTelp, role} = req.body;
+            const {nama, email, password, noTelp} = req.body;
             console.log("User Data:", req.body);
-            // kembalikan fungsi dan buat data dari scheme user
-            await Users.create({email, password, nama, noTelp, role});
-            // notifikasi bila add data sukses
-            req.flash("alertMessage", "Data users berhasil ditambahkan");
-            req.flash("alertStatus", "success");
-            res.redirect("/users");
+            let newUser = null;
+
+            // Pemeriksaan
+            if(password.length < 6 ) {
+                req.flash("alertMessage", "Password terlalu pendek");
+                req.flash("alertStatus", "danger");
+                res.redirect("/users");
+            } else {
+                const user = await Users.findOne({ email: email }).exec();
+                console.log(user);   
+                if(user) {
+                    req.flash("alertMessage", "Email telah terdaftar");
+                    req.flash("alertStatus", "danger");
+                    res.redirect("/users");
+                } else {
+                    newUser = new Users({
+                        nama : nama,
+                        email : email,
+                        password : password,
+                        noTelp : noTelp
+                    })
+                }
+                bcrypt.genSalt(10,(err,salt)=> 
+                bcrypt.hash(req.body.password, salt, (err,hash)=> {
+                if(err) throw err;
+                newUser.password = hash;
+
+                if (newUser) {
+                    newUser.save()
+                    .then((value) => {
+                        req.flash("alertMessage", "Data berhasil ditambahkan");
+                        req.flash("alertStatus", "success");
+                        res.redirect("users");
+                    })
+                    .catch(value => console.log(value));
+                }
+                }));
+            }
         } catch (error) {
             console.log("Error:", error);
             req.flash("alertMessage", `${error.message}`);
             req.flash("alertStatus", "danger");
-            res.redirect("/users");
+            res.redirect("users");
         }
     },
 
@@ -60,25 +92,49 @@ module.exports = {
             // Mencari variabel yang dideklarasikan dan cek id pada database
             // untuk dicocokkan sesuai input
             const users = await Users.findOne({_id:id});
-            // Ambil data user
-            users.nama = nama;
-            users.email = email;
-            users.password=password;
-            users.noTelp=noTelp;
-            users.role=role;
-            // Simpan data ke database
-            await users.save();
-            // Jika edit berhasil, berikan notifikasi
-            req.flash("alertMessage", "Data user berhasil diedit");
-            req.flash("alertStatus", "success");
-            // Redirect ke /users
-            res.redirect("/users");
+            let editUser = null;
+
+            // Pemeriksaan
+            if(password.length < 6 ) {
+                req.flash("alertMessage", "Password terlalu pendek");
+                req.flash("alertStatus", "danger");
+                res.redirect("/users");
+            } else {
+                editUser = new Users({
+                    nama : nama,
+                    email : email,
+                    password : password,
+                    noTelp : noTelp,
+                    role: role,
+                })
+            }
+            bcrypt.genSalt(10,(err,salt)=> 
+                bcrypt.hash(req.body.password, salt, (err,hash)=> {
+                if(err) throw err;
+                editUser.password = hash;
+
+                if (editUser) {
+                    users.nama = editUser.nama;
+                    users.email = editUser.email;
+                    users.password= editUser.password;
+                    users.noTelp= editUser.noTelp;
+                    users.role= editUser.role;
+                    // Simpan data ke database
+                    users.save()
+                    .then((value) => {
+                        req.flash("alertMessage", "Data berhasil diedit");
+                        req.flash("alertStatus", "success");
+                        res.redirect("users");
+                    })
+                    .catch(value => console.log(value));
+                }
+                }));
+
         } catch (error) {
-            // Jika edit data eror, berikan notifikasi erornya
+            console.log("Error:", error);
             req.flash("alertMessage", `${error.message}`);
             req.flash("alertStatus", "danger");
-            // ketika inputan kosong maka redirect kehalaman (/users)
-            res.redirect("/users");
+            res.redirect("users");
         }
     },
 

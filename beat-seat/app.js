@@ -3,9 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const expressEjsLayout = require('express-ejs-layouts')
 
 //import flash
 const flash = require("connect-flash");
+
+// import passport
+const passport = require('passport');
+require("./config/passport.js")(passport);
 
 //import session
 const session = require("express-session");
@@ -33,6 +38,7 @@ var indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require("./routes/auth");
 const konserRouter = require("./routes/konser");
+const publicRouter = require("./routes/public");
 
 var app = express();
 
@@ -53,6 +59,10 @@ app.use(
   })
 );
 
+// menggunakan passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 // menggunakan flash
 app.use(flash());
 
@@ -67,6 +77,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/auth", authRouter);
 app.use("/konser", konserRouter);
+app.use("/public", publicRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

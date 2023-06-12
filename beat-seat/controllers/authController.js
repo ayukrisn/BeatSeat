@@ -1,4 +1,5 @@
 const Users = require("../models/Users");
+const bcrypt = require('bcrypt');
 
 // Login page
 
@@ -13,73 +14,83 @@ module.exports = {
             alert })
     },
 
-    login: async (req, res) => {
-        try {
-            const { email, password } = req.body;
-            // Variabel untuk alertMessage dan alertStatus
-            const alertMessage = req.flash("alertMessage");
-            const alertStatus = req.flash("alertStatus");
-            // Variabel bersifat object dan memiliki pesan dari variabel alert di atas
-            const alert = { message: alertMessage, status: alertStatus};
-
-            // Implement the logic to authenticate the user
-            // For example, you can query the database to find a matching user
-            const users = await Users.findOne({email: email, password: password});
-            if (!users) {
-                // Handle invalid credentials
-                req.flash("alertMessage", "Login gagal. Masukkan email dan password yang benar");
-                req.flash("alertStatus", "danger");
-                res.redirect("./");
-                // res.render("index", { 
-                //     title: "Login", 
-                //     alert });
-            } else {
-                // Redirect the user to a protected page or perform any other desired actions
-                req.session.user = users._id; // set session property ke users._id
-                req.flash("alertMessage", "Login berhasil");
-                req.flash("alertStatus", "success");
-                res.redirect("/users");
-            }
-        } catch (error) {
-            // Jika eror, redirect ke login
-            console.error(error);
-            req.flash("alertMessage", "Login error");
-            req.flash("alertStatus", "warning");
-            res.redirect("./");
-        }
-    },
-
     getSignupPage : (req, res) => {
-        res.render("auth/signup", { title: "Signup" });
+        const alertMessage = req.flash("alertMessage");
+        const alertStatus = req.flash("alertStatus");
+        // Variabel bersifat object dan memiliki pesan dari variabel alert di atas
+        const alert = { message: alertMessage, status: alertStatus};
+        res.render("auth/signup", { 
+            title: "Signup",
+            alert })
     },
 
     signup: async (req, res) => {
         try {
             // konstanta dari yang akan diambil pada form
-            const {nama, email, password, noTelp} = req.body;
+            const {nama, email, password, password2, noTelp} = req.body;
             console.log("User Data:", req.body);
-            // kembalikan fungsi dan buat data dari scheme user
-            await Users.create({email, password, nama, noTelp});
-            // notifikasi bila sign up sukses
-            req.flash("alertMessage", "Sign up berhasil. Silahkan lakukan login");
-            req.flash("alertStatus", "success");
-            res.redirect("./");
+            let newUser = null;
+
+            // Pemeriksaan
+            if(password != password2) {
+                req.flash("alertMessage", "Password tidak sama");
+                req.flash("alertStatus", "danger");
+                res.redirect("./signup");
+            } else if(password.length < 6 ) {
+                req.flash("alertMessage", "Password terlalu pendek");
+                req.flash("alertStatus", "danger");
+                res.redirect("./signup");
+            } else {
+                const user = await Users.findOne({ email: email }).exec();
+                console.log(user);   
+                if(user) {
+                    req.flash("alertMessage", "Email telah terdaftar");
+                    req.flash("alertStatus", "danger");
+                    res.redirect("./signup");
+                } else {
+                    newUser = new Users({
+                        nama : nama,
+                        email : email,
+                        password : password,
+                        noTelp : noTelp
+                    })
+                }
+                bcrypt.genSalt(10,(err,salt)=> 
+                bcrypt.hash(req.body.password, salt, (err,hash)=> {
+                if(err) throw err;
+                newUser.password = hash;
+
+                if (newUser) {
+                    newUser.save()
+                    .then((value) => {
+                        req.flash("alertMessage", "Sign up berhasil. Silahkan lakukan login");
+                        req.flash("alertStatus", "success");
+                        res.redirect("./login");
+                    })
+                    .catch(value => console.log(value));
+                }
+                }));
+            }
         } catch (error) {
             console.log("Error:", error);
             req.flash("alertMessage", `${error.message}`);
             req.flash("alertStatus", "danger");
-            res.redirect("./");
+            res.redirect("./login");
         }
     },
 
-    logout: async (req, res) => {
-        req.session.destroy((err) => {
-            if (err) {
-              console.error("Error destroying session:", err);
-            } else {
-              // Redirect the user to the login page or any other desired destination
-              res.redirect("./");
-            }
-          });
-    }
+    logout: (req, res) => {
+        req.logout((err) => {
+          if (err) {
+            console.log("Error:", err);
+            req.flash("alertMessage", "Log out gagal");
+            req.flash("alertStatus", "danger");
+            res.redirect("./login");
+          } else {
+            req.flash("alertMessage", "Log out berhasil");
+            req.flash("alertStatus", "success");
+            res.redirect("./login");
+          }
+        });
+      }
 }
