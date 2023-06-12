@@ -8,65 +8,8 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <style>
-      .sidebar {
-        background-color: #f8f9fa;
-        height: 100vh;
-        padding-top: 20px;
-      }
-
-      .sidebar .nav-link {
-        color: #343a40;
-        padding: 10px;
-      }
-
-      .sidebar .nav-link:hover {
-        background-color: #e9ecef;
-      }
-
-      .sidebar .nav-link.active {
-        background-color: #343a40;
-        color: #fff;
-        font-weight: bold;
-      }
-
-      .sidebar .sidebar-title {
-        font-size: 24px;
-        font-weight: bold;
-        color: #343a40;
-        padding: 0 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-2 sidebar">
-          <div class="sidebar-title">BeatSeat</div>
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Dashboard</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./users">Users</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link.active" href="#">Konser</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Tiket</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Transaksi</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="auth/logout">Log Out</a>
-            </li>
-          </ul>
-        </div>
+    <!--Sidebar-->
+    <%- include('../parts/sidebar.ejs') %>
         <div class="col-md-10">
           <div class="container mt-5">
             <h2 class="text-center">BEATSEAT - DAFTAR KONSER</h2>

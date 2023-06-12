@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Admin Landing Page</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Admin Landing Page</h1>
-    <p>This is a pretty admin landing page made with HTML and Bootstrap 4.</p>
-    <div class="row">
-      <div class="col-md-4">
-        <h2>Dashboard</h2>
-        <p>This is the dashboard where you can manage all aspects of your website.</p>
-        <ul>
-          <li><a href="#">Users</a></li>
-          <li><a href="#">Posts</a></li>
-          <li><a href="#">Pages</a></li>
-          <li><a href="#">Settings</a></li>
-        </ul>
+  <head>
+    <title>Admin Dashboard</title>
+    <link 
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+      <!--Sidebar-->
+      <%- include('parts/sidebar.ejs') %>
+        <div class="col-md-10">
+          <div class="container mt-5">
+            <h2 class="text-center">BEATSEAT - ADMIN DASHBOARD</h2>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</body>
+    <!--JS-->
+    <%- include('parts/js.ejs') %>
+  </body>
 </html>

@@ -23,7 +23,7 @@ module.exports = {
     roleAuthentication : function(req,res,next) {
         console.log(req.user)
         if(req.isAuthenticated() && (req.user.role === "Admin")) {
-            res.redirect('../users');
+            res.redirect('../dashboard');
         } else {
             res.redirect('../public');
         }
