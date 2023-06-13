@@ -1,8 +1,8 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
+  <% if( role === "Admin") { %>
     <div class="card-header py-3">
       <!-- Button trigger modal -->
-      <% if( role === "Admin") { %>
       <button
         type="button"
         class="btn btn-outline-primary btn-sm"
@@ -11,8 +11,8 @@
       >
         Add
       </button>
-      <% } %>
     </div>
+    <% } %>
     <div class="card-body">
       <div class="table-responsive">
         <table
@@ -23,13 +23,13 @@
         >
           <thead>
             <tr>
-              <th>No</th>
-              <th>Konser</th>
-              <th>Kategori</th>
-              <th>Deskripsi</th>
-              <th>Status</th>
-              <th>Alamat</th>
-              <th>Waktu</th>
+              <th onclick="sortTable(0)">No</th>
+              <th onclick="sortTable(1)">Konser</th>
+              <th onclick="sortTable(2)">Kategori</th>
+              <th onclick="sortTable(3)">Deskripsi</th>
+              <th onclick="sortTable(4)">Status</th>
+              <th onclick="sortTable(5)">Alamat</th>
+              <th onclick="sortTable(6)">Waktu</th>
               <% if( role === "Admin") { %>
               <th>Action</th>
               <% } %>
@@ -38,7 +38,7 @@
           <tbody>
             <% for(let i = 0; i < konser.length; i++) { %>
             <tr>
-              <td><%= i +1 %></td>
+              <td onclick="sortTable(0)"><%= i +1 %></td>
               <td><%= konser[i].namaKonser %></td>
               <td><%= konser[i].kategoriKonser %></td>
               <td><%= konser[i].deskripsiKonser %></td>
@@ -81,3 +81,56 @@
       </div>
     </div>
   </div>
+
+  <script> 
+    function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("dataTable");
+      switching = true;
+      dir = "asc"; 
+      while (switching) {
+        switching = false;
+        rows = table.rows;
+        for (i = 1; i < (rows.length - 1); i++) {
+          shouldSwitch = false;
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          if ( n != 0) {
+            if (dir == "asc") {
+              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                shouldSwitch= true;
+                break;
+              }
+            } else if (dir == "desc") {
+              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+              }
+            }
+          } else {
+            if (dir == "asc") {
+              if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                shouldSwitch= true;
+                break;
+              }
+            } else if (dir == "desc") {
+              if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                shouldSwitch = true;
+                break;
+              }
+            }
+          }
+        }
+        if (shouldSwitch) {
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          switchcount ++;      
+        } else {
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+    </script>
