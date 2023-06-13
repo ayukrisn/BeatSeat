@@ -20,7 +20,7 @@ module.exports = {
             // Render view pada file index, tampilkan data dan destracturkan,
             // lalu panggil variabel konser di atas.
             // Render alert yang sudah dideclare
-            res.render("konser/index", { // BEDA DARI TUTORIAL
+            res.render("konser/index", { 
                 konser,
                 alert,
                 title: "BeatSeat",

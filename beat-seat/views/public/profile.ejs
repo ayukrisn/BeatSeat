@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Page</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!--Sidebar-->
+    <%- include('../parts/sidebar.ejs') %>
+<div class="col-md-10">
+    <div class="container mt-5">
+        <h2 class="text-center mt-3">PROFILE PAGE</h2>
+        <!--Alert-->
+        <%- include('../parts/alerts.ejs') %>
+        <div class="col-lg-8 mx-auto mt-5" id="dataProfile">
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Nama</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0"><%= user.nama %></p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Email</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0"><%= user.email %></p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Nomor Telepon</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0"><%= user.noTelp %></p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Role</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0"><%= user.role %></p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-5 text-center"></div>
+                    <!-- data-nama di bawah akan dikirim pada form input pada modal-edit, dengan
+                        data dari tabel konser array[i] mengambil kolom pada database-->
+                    <a 
+                        href="javascript:void()"
+                        class="btn btn-outline-warning btn-sm button-update"
+                        data-id="<%= user.id %>"
+                        data-nama="<%= user.nama %>"
+                        data-email="<%= user.email %>"
+                        data-noTelp="<%= user.noTelp %>"
+                        data-role="<%= user.role %>"
+                        style="width: 100%"
+                    >Edit Profile</a>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Modal -->
+    <%- include('edit_profile_modal.ejs') %>
+    <!--JS-->
+    <%- include('../parts/js.ejs') %>
+
+    <script> 
+      // Tampilkan modal dan memanggil tag table yang memiliki id dataTable
+      // class button-update di class tag a Edit pada file table.ejs
+      $("#dataProfile").on("click", ".button-update", function() {
+        // buat variabel untuk ambil data pada file table.ejs pada bagian tag a edit
+        let id = $(this).data("id");
+        let nama = $(this).data("nama");
+        let email = $(this).data("email");
+        let password = $(this).data("password");
+        let noTelp = $(this).data("notelp");
+        let role = $(this).data("role");
+        // panggil id edit-modal pada file edit_modal.ejs
+        // dan membuat fungsi dari method
+        $("#edit-modal").modal("show");
+        // Kirim data melalui class di samping form-control tag input
+        // dan valuenya mengambil dari tiap let di atas
+        $(".id").val(id);
+        $(".nama").val(nama);
+        $(".email").val(email);
+        $(".password").val(password);
+        $(".noTelp").val(noTelp);
+        $(".role").val(role);
+      });
+    </script>
+</body>
+</html>

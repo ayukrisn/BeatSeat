@@ -36,7 +36,7 @@ module.exports = {
                 req.flash("alertMessage", "Password tidak sama");
                 req.flash("alertStatus", "danger");
                 res.redirect("./signup");
-            } else if(password.length < 6 ) {
+            } else if (password.length < 6 ) {
                 req.flash("alertMessage", "Password terlalu pendek");
                 req.flash("alertStatus", "danger");
                 res.redirect("./signup");

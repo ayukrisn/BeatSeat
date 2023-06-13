@@ -125,7 +125,12 @@ module.exports = {
                     .then((value) => {
                         req.flash("alertMessage", "Data berhasil diedit");
                         req.flash("alertStatus", "success");
-                        res.redirect("users");
+                        if (req.user.role === "Admin") {
+                            res.redirect("users");
+                        } else {
+                            res.redirect("/public/profile");
+                        }
+                        
                     })
                     .catch(value => console.log(value));
                 }
@@ -159,6 +164,33 @@ module.exports = {
             req.flash("alertStatus", "danger");
             // ketika inputan kosong, redirect kehalaman
             res.redirect("/users");
+        }
+    },
+
+    // Membuat view profile
+    viewProfile: async (req, res) => {
+        try {
+            // Membuat variabel users dan menunda eksekusi hingga proses async selesai
+            // lalu mengambil model user dan menggunakan method find untuk mengambil collection
+            // pada database sesuai dengan id user yang sedang aktif
+            const user = await Users.findOne({_id:req.user.id});
+            // Variabel untuk alertMessage dan alertStatus
+            const alertMessage = req.flash("alertMessage");
+            const alertStatus = req.flash("alertStatus");
+            // Variabel bersifat object dan memiliki pesan dari variabel alert di atas
+            const alert = { message: alertMessage, status: alertStatus};
+            // Render view pada file index, tampilkan data dan destracturkan,
+            // lalu panggil variabel users di atas.
+            // Render alert yang sudah dideclare
+            res.render("public/profile.ejs", {
+                user,
+                alert,
+                title: "BeatSeat",
+                role: req.user.role
+            })
+        } catch (error) {
+            // Jika eror, redirect ke route public
+            res.redirect("./public");
         }
     },
 };

@@ -4,6 +4,9 @@ const authController = require("../controllers/authController");
 const {roleAuthentication} = require("../config/auth.js")
 
 // Login route
+router.get('/', function(req, res, next) {
+    res.redirect("/auth/login");
+  });
 router.get("/login", authController.getLoginPage);
 
 router.post('/login',(req,res,next)=>{
