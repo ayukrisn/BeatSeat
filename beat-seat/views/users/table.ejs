@@ -1,47 +1,39 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <!-- Button trigger modal -->
-      <button
-        type="button"
-        class="btn btn-outline-primary btn-sm"
-        data-toggle="modal"
-        data-target="#add-modal"
-      >
-        Add
-      </button>
-    </div>
-    <div class="card-body">
-      <div class="table-responsive">
-        <table
-          class="table table-bordered"
-          id="dataTable"
-          width="100%"
-          cellspacing="0"
-        >
-          <thead>
-            <tr>
-              <th onclick="sortTable(0)">No</th>
-              <th onclick="sortTable(1)">Nama</th>
-              <th onclick="sortTable(2)">Email</th>
-              <th onclick="sortTable(3)">Nomor Telepon</th>
-              <th onclick="sortTable(4)">Role</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for(let i = 0; i < users.length; i++) { %>
-            <tr>
-              <td><%= i +1 %></td>
-              <td><%= users[i].nama %></td>
-              <td><%= users[i].email %></td>
-              <td><%= users[i].noTelp %></td>
-              <td><%= users[i].role %></td>
-              <td class="text-center">
-                <form
-                  action="/users/<%= users[i].id %>?_method=DELETE"
-                  method="POST"
-                >
+  <div class="card-header py-3">
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-outline-primary btn-sm"
+      data-toggle="modal"
+      data-target="#add-modal"
+    >
+      Add
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)" class="sortable">No</th>
+            <th onclick="sortTable(1)" class="sortable">Nama</th>
+            <th onclick="sortTable(2)" class="sortable">Email</th>
+            <th onclick="sortTable(3)" class="sortable">Nomor Telepon</th>
+            <th onclick="sortTable(4)" class="sortable">Role</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let i = 0; i < users.length; i++) { %>
+          <tr>
+            <td><%= i +1 %></td>
+            <td><%= users[i].nama %></td>
+            <td><%= users[i].email %></td>
+            <td><%= users[i].noTelp %></td>
+            <td><%= users[i].role %></td>
+            <td class="text-center">
+              <form action="/users/<%= users[i].id %>?_method=DELETE" method="POST">
                 <!-- data-nama tsb akan dikirim pada form input pada modal-edit, dengan
                     data dari tabel users array[i] mengambil kolom pada database-->
                 <a 
@@ -61,32 +53,74 @@
                   Delete
                 </button>
               </form>
-              </td>
-            </tr>
-            <% } %>
-          </tbody>
-        </table>
-      </div>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
 
-<script> 
+<style>
+.sortable {
+  cursor: pointer;
+  position: relative;
+}
+
+.sortable:after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #ccc;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.sortable.asc:after {
+  border-top: 0;
+  border-bottom: 5px solid #ccc;
+  opacity: 1;
+}
+
+.sortable.desc:after {
+  border-top: 5px solid #ccc;
+  border-bottom: 0;
+  opacity: 1;
+}
+
+.sortable.asc {
+  background-color: #eaeaea;
+}
+
+.sortable.desc {
+  background-color: #f5f5f5;
+}
+</style>
+
+<script>
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("dataTable");
   switching = true;
-  dir = "asc"; 
+  dir = "asc";
   while (switching) {
     switching = false;
     rows = table.rows;
-    for (i = 1; i < (rows.length - 1); i++) {
+    for (i = 1; i < rows.length - 1; i++) {
       shouldSwitch = false;
       x = rows[i].getElementsByTagName("TD")[n];
       y = rows[i + 1].getElementsByTagName("TD")[n];
-      if ( n != 0) {
+      if (n != 0) {
         if (dir == "asc") {
           if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-            shouldSwitch= true;
+            shouldSwitch = true;
             break;
           }
         } else if (dir == "desc") {
@@ -98,7 +132,7 @@ function sortTable(n) {
       } else {
         if (dir == "asc") {
           if (Number(x.innerHTML) > Number(y.innerHTML)) {
-            shouldSwitch= true;
+            shouldSwitch = true;
             break;
           }
         } else if (dir == "desc") {
@@ -112,7 +146,7 @@ function sortTable(n) {
     if (shouldSwitch) {
       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
       switching = true;
-      switchcount ++;      
+      switchcount++;
     } else {
       if (switchcount == 0 && dir == "asc") {
         dir = "desc";
@@ -120,5 +154,16 @@ function sortTable(n) {
       }
     }
   }
+
+  // Remove sorting classes from all columns
+  var thElements = table.getElementsByTagName("th");
+  for (var j = 0; j < thElements.length; j++) {
+    thElements[j].classList.remove("asc");
+    thElements[j].classList.remove("desc");
+  }
+
+  // Add sorting class to the clicked column
+  thElements[n].classList.toggle("asc", dir === "asc");
+  thElements[n].classList.toggle("desc", dir === "desc");
 }
 </script>
