@@ -9,6 +9,11 @@
         crossorigin="anonymous"
     />
     <style>
+        .container { 
+            width: 500px!important; 
+            max-width: 500px!important; 
+        }
+
         html, body {
             height: 100%;
             display: flex;
@@ -19,7 +24,8 @@
 </head>
 <body>
     <div class="container">
-        <h2>Login</h2>
+        <h6 class="text-center margin-button=5" >BeatSeat</h6>
+        <h2 class="text-center">Log In</h2>
         <form method="POST" action="/auth/login">
             <div class="form-group">
                 <label for="email">Email</label>
@@ -43,7 +49,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
-        <p>Don't have an account? <a href="/auth/signup">Signup</a></p>
+        <p>Tidak memiliki akun? <a href="/auth/signup">Signup</a></p>
         <%- include('../parts/alerts.ejs') %>
     </div>
     <%- include('../parts/js.ejs') %>
