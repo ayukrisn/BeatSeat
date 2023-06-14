@@ -35,5 +35,7 @@ const usersScheme = new mongoose.Schema({
     },
 });
 
+usersScheme.index({ nama: "text" });
+
 // ekspor model dari users sehingga bisa digunakan
 module.exports=mongoose.model("Users", usersScheme);

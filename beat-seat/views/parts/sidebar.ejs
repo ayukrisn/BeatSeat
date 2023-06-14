@@ -37,21 +37,21 @@
           <li class="nav-item">
             <li class="nav-item">
               <% if( role === "Admin") { %>
-              <a class="nav-link" href="./dashboard">Dashboard</a>
+              <a class="nav-link" href="/dashboard">Dashboard</a>
               <% } else { %>
               <a class="nav-link" href="public/">Dashboard</a>
               <% } %>
           </li>
           <li class="nav-item">
             <% if( role === "Admin") { %>
-            <a class="nav-link" href="./users">Users</a>
+            <a class="nav-link" href="/users">Users</a>
             <% } else { %>
-            <a class="nav-link" href="./public/profile">Profile</a>
+            <a class="nav-link" href="/public/profile">Profile</a>
             <% } %>
           </li>
           <li class="nav-item">
             <% if( role === "Admin") { %>
-              <a class="nav-link" href="./konser">Konser</a>
+              <a class="nav-link" href="/konser">Konser</a>
               <% } else { %>
               <a class="nav-link" href="/konser">Konser</a>
               <% } %>

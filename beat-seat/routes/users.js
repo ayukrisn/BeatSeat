@@ -13,5 +13,6 @@ router.get("/", ensureAuthenticatedAsAdmin, usersController.viewUsers); // untuk
 router.post("/", ensureAuthenticatedAsAdmin, usersController.addUsers); // tambah user
 router.put("/", ensureAuthenticatedAsAdmin, usersController.editUsers); // edit user
 router.delete("/:id", ensureAuthenticatedAsAdmin, usersController.deleteUsers); // edit user
+router.get("/search", ensureAuthenticatedAsAdmin, usersController.searchUsers); // search users
 
 module.exports = router;

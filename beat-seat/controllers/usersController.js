@@ -193,4 +193,28 @@ module.exports = {
             res.redirect("./public");
         }
     },
+
+    // Search data konser
+    searchUsers: async (req, res) => {
+        try {
+          const { search } = req.query;
+          const users = await Users.find({ $text: { $search: search } });
+      
+          const alertMessage = req.flash("alertMessage");
+          const alertStatus = req.flash("alertStatus");
+          const alert = { message: alertMessage, status: alertStatus };
+      
+          res.render("users/index", {
+            users,
+            alert,
+            title: "BeatSeat",
+            role: req.user.role,
+          });
+        } catch (error) {
+          console.error(error);
+          req.flash("alertMessage", "Error searching users");
+          req.flash("alertStatus", "warning");
+          res.redirect("/users");
+        }
+      }
 };

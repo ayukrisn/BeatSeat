@@ -111,7 +111,7 @@ module.exports = {
         }
     },
 
-    // Search data for konser
+    // Search data konser
     searchKonser: async (req, res) => {
     try {
       const { search } = req.query;
