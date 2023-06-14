@@ -60,9 +60,9 @@ module.exports = {
                         password : password,
                         noTelp : noTelp
                     })
-                }
-                bcrypt.genSalt(10,(err,salt)=> 
-                bcrypt.hash(req.body.password, salt, (err,hash)=> {
+
+                    bcrypt.genSalt(10,(err,salt)=> 
+                    bcrypt.hash(req.body.password, salt, (err,hash)=> {
                 if(err) throw err;
                 newUser.password = hash;
 
@@ -76,6 +76,7 @@ module.exports = {
                     .catch(value => console.log(value));
                 }
                 }));
+                }
             }
         } catch (error) {
             console.log("Error:", error);

@@ -54,22 +54,23 @@ module.exports = {
                         password : password,
                         noTelp : noTelp
                     })
-                }
-                bcrypt.genSalt(10,(err,salt)=> 
-                bcrypt.hash(req.body.password, salt, (err,hash)=> {
-                if(err) throw err;
-                newUser.password = hash;
 
-                if (newUser) {
-                    newUser.save()
-                    .then((value) => {
-                        req.flash("alertMessage", "Sign up berhasil. Silahkan lakukan login");
-                        req.flash("alertStatus", "success");
-                        res.redirect("./login");
-                    })
-                    .catch(value => console.log(value));
+                    bcrypt.genSalt(10,(err,salt)=> 
+                    bcrypt.hash(req.body.password, salt, (err,hash)=> {
+                    if(err) throw err;
+                    newUser.password = hash;
+    
+                    if (newUser) {
+                        newUser.save()
+                        .then((value) => {
+                            req.flash("alertMessage", "Sign up berhasil. Silahkan lakukan login");
+                            req.flash("alertStatus", "success");
+                            res.redirect("./login");
+                        })
+                        .catch(value => console.log(value));
+                    }
+                    }));
                 }
-                }));
             }
         } catch (error) {
             console.log("Error:", error);
