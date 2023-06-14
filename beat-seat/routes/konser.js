@@ -14,5 +14,7 @@ router.get("/", ensureAuthenticated, konserController.viewKonser); // untuk view
 router.post("/", ensureAuthenticated, konserController.addKonser); // tambah konser
 router.put("/", ensureAuthenticated, konserController.editKonser); // edit konser
 router.delete("/:id", ensureAuthenticated, konserController.deleteKonser); // edit konser
+router.get("/search", ensureAuthenticated, konserController.searchKonser); // search konser
+
 
 module.exports = router;

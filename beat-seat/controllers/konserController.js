@@ -110,4 +110,29 @@ module.exports = {
             res.redirect("/konser");
         }
     },
+
+    // Search data for konser
+    searchKonser: async (req, res) => {
+    try {
+      const { search } = req.query;
+      const konser = await Konser.find({ $text: { $search: search } });
+  
+      const alertMessage = req.flash("alertMessage");
+      const alertStatus = req.flash("alertStatus");
+      const alert = { message: alertMessage, status: alertStatus };
+  
+      res.render("konser/index", {
+        konser,
+        alert,
+        title: "BeatSeat",
+        role: req.user.role,
+      });
+    } catch (error) {
+      console.error(error);
+      req.flash("alertMessage", "Error searching konser");
+      req.flash("alertStatus", "warning");
+      res.redirect("/konser");
+    }
+  }
+  
 };

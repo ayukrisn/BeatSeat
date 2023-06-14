@@ -40,7 +40,10 @@ const konserScheme = new mongoose.Schema({
         //Tidak boleh kosong
         required: true,
     },
+    
 });
+
+konserScheme.index({ namaKonser: "text", deskripsiKonser: "text"});
 
 // ekspor model dari konser sehingga bisa digunakan
 module.exports=mongoose.model("Konser", konserScheme);
